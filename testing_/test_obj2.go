@@ -19,7 +19,7 @@
 
 package testing_
 
-import "github.com/AustinZhu/gogm"
+import "github.com/AustinZhu/gogm/v2"
 
 type ExampleObject2 struct {
 	gogm.BaseNode

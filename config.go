@@ -28,6 +28,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var neoVersion float64
@@ -64,6 +65,9 @@ type Config struct {
 
 	// PoolSize is the size of the connection pool for GoGM
 	PoolSize int `yaml:"pool_size" json:"pool_size" mapstructure:"pool_size"`
+
+	MaxRetries        int           `json:"max_retries" yaml:"max_retries" mapstructure:"max_retries"`
+	RetryWaitDuration time.Duration `json:"retry_wait_duration" yaml:"retry_wait_duration" mapstructure:"retry_wait_duration"`
 
 	Realm string `yaml:"realm" json:"realm" mapstructure:"realm"`
 
@@ -193,6 +197,21 @@ func setupInit(isTest bool, conf *Config, mapTypes ...interface{}) error {
 	if err := mappedRelations.Validate(); err != nil {
 		log.WithError(err).Error("failed to validate edges")
 		return err
+	}
+
+	if isTest && conf != nil {
+		if conf.MaxRetries < 0 {
+			conf.MaxRetries = 0
+		}
+
+		if conf.RetryWaitDuration == 0 {
+			// default is 1 second
+			conf.RetryWaitDuration = time.Second
+		}
+
+		internalConfig = conf
+	} else {
+		internalConfig = &Config{RetryWaitDuration: time.Second, MaxRetries: 0}
 	}
 
 	if !isTest {

@@ -20,7 +20,7 @@
 package testing_
 
 import (
-	"github.com/AustinZhu/gogm"
+	"github.com/AustinZhu/gogm/v2"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
