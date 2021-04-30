@@ -1,6 +1,6 @@
 module github.com/AustinZhu/gogm
 
-go 1.13
+go 1.16
 
 require (
 	github.com/adam-hanna/arrayOperations v0.2.6
