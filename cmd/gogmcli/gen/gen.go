@@ -24,7 +24,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/AustinZhu/gogm/cmd/gogmcli/util"
+	"github.com/AustinZhu/gogm/v2/cmd/gogmcli/util"
 	dsl "github.com/mindstand/go-cypherdsl"
 	"go/format"
 	"html/template"

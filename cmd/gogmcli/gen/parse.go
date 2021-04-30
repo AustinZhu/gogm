@@ -22,8 +22,8 @@ package gen
 import (
 	"bytes"
 	"errors"
-	"github.com/AustinZhu/gogm/cmd/gogmcli/util"
-	go_cypherdsl "github.com/mindstand/go-cypherdsl"
+	"github.com/AustinZhu/gogm/v2/cmd/gogmcli/util"
+	gocypherdsl "github.com/mindstand/go-cypherdsl"
 	"go/ast"
 	"go/parser"
 	"go/printer"
@@ -38,7 +38,7 @@ type relConf struct {
 	RelationshipName string
 	Type             string
 	IsMany           bool
-	Direction        go_cypherdsl.Direction
+	Direction        gocypherdsl.Direction
 }
 
 // parses each file using ast looking for nodes to handle
@@ -190,23 +190,23 @@ func parseGogmNode(strType *ast.StructType, confs *map[string][]*relConf, label 
 					if strings.Contains(part, "relationship") && strings.Contains(part, "direction") {
 						gogmParts := strings.Split(part, ";")
 
-						var dir go_cypherdsl.Direction
+						var dir gocypherdsl.Direction
 						var relName string
 						for _, p := range gogmParts {
 							if strings.Contains(p, "direction") {
 								str := util.RemoveFromString(p, "direction=", "\"")
 								switch str {
 								case "incoming":
-									dir = go_cypherdsl.DirectionIncoming
+									dir = gocypherdsl.DirectionIncoming
 									break
 								case "outgoing":
-									dir = go_cypherdsl.DirectionOutgoing
+									dir = gocypherdsl.DirectionOutgoing
 									break
 								case "both":
-									dir = go_cypherdsl.DirectionBoth
+									dir = gocypherdsl.DirectionBoth
 									break
 								case "none":
-									dir = go_cypherdsl.DirectionNone
+									dir = gocypherdsl.DirectionNone
 									break
 								default:
 									log.Printf("direction %s not found", str)
