@@ -25,27 +25,15 @@ import (
 
 //drops all known indexes
 func dropAllIndexesAndConstraints() error {
-	if neoVersion >= 4 {
-		return dropAllIndexesAndConstraintsV4()
-	}
-
-	return dropAllIndexesAndConstraintsV3()
+	return dropAllIndexesAndConstraintsV4()
 }
 
 //creates all indexes
 func createAllIndexesAndConstraints(mappedTypes *hashmap.HashMap) error {
-	if neoVersion >= 4 {
-		return createAllIndexesAndConstraintsV4(mappedTypes)
-	}
-
-	return createAllIndexesAndConstraintsV3(mappedTypes)
+	return createAllIndexesAndConstraintsV4(mappedTypes)
 }
 
 //verifies all indexes
 func verifyAllIndexesAndConstraints(mappedTypes *hashmap.HashMap) error {
-	if neoVersion >= 4 {
-		return verifyAllIndexesAndConstraintsV4(mappedTypes)
-	}
-
-	return verifyAllIndexesAndConstraintsV3(mappedTypes)
+	return verifyAllIndexesAndConstraintsV4(mappedTypes)
 }
