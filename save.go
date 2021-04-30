@@ -23,7 +23,7 @@ import (
 	"errors"
 	"fmt"
 	dsl "github.com/mindstand/go-cypherdsl"
-	"github.com/neo4j/neo4j-go-driver/neo4j"
+	"github.com/neo4j/neo4j-go-driver/v4/neo4j"
 	"reflect"
 )
 
@@ -329,7 +329,7 @@ func createNodes(runFunc neoRunFunc, crNodes map[string]map[string]nodeCreateCon
 		}
 
 		for res.Next() {
-			row := res.Record().Values()
+			row := res.Record().Values
 			if len(row) != 2 {
 				continue
 			}

@@ -455,7 +455,7 @@ func newDecoratorConfig(decorator, name string, varType reflect.Type) (*decorato
 	return &toReturn, nil
 }
 
-//validates if struct decorator is valid
+// Validate validates if struct decorator is valid
 func (s *structDecoratorConfig) Validate() error {
 	if s.Fields == nil {
 		return errors.New("no fields defined")

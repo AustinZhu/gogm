@@ -34,14 +34,14 @@ type BaseNode struct {
 	LoadMap map[string]*RelationConfig `json:"-" gogm:"-"`
 }
 
-// Specifies Type of testRelationship
+// RelationType Specifies Type of testRelationship
 type RelationType int
 
 const (
-	// Side of relationship can only point to 0 or 1 other nodes
+	// Single Side of relationship can only point to 0 or 1 other nodes
 	Single RelationType = 0
 
-	// Side of relationship can point to 0+ other nodes
+	// Multi Side of relationship can point to 0+ other nodes
 	Multi RelationType = 1
 )
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/mindstand/gogm"
+	"github.com/AustinZhu/gogm"
 	"reflect"
 	"time"
 )

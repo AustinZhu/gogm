@@ -25,7 +25,7 @@ import (
 	"github.com/adam-hanna/arrayOperations"
 	"github.com/cornelk/hashmap"
 	dsl "github.com/mindstand/go-cypherdsl"
-	"github.com/neo4j/neo4j-go-driver/neo4j"
+	"github.com/neo4j/neo4j-go-driver/v4/neo4j"
 )
 
 func resultToStringArrV4(isConstraint bool, res neo4j.Result) ([]string, error) {
@@ -43,7 +43,7 @@ func resultToStringArrV4(isConstraint bool, res neo4j.Result) ([]string, error) 
 	}
 
 	for res.Next() {
-		val := res.Record().Values()
+		val := res.Record().Values
 		// nothing to parse
 		if val == nil || len(val) == 0 {
 			continue
@@ -63,14 +63,11 @@ func resultToStringArrV4(isConstraint bool, res neo4j.Result) ([]string, error) 
 //drops all known indexes
 func dropAllIndexesAndConstraintsV4() error {
 	for _, db := range internalConfig.TargetDbs {
-		sess, err := driver.NewSession(neo4j.SessionConfig{
+		sess := driver.NewSession(neo4j.SessionConfig{
 			AccessMode:   neo4j.AccessModeWrite,
 			Bookmarks:    nil,
 			DatabaseName: db,
 		})
-		if err != nil {
-			return err
-		}
 		defer sess.Close()
 
 		res, err := sess.Run("CALL db.constraints()", nil)
@@ -188,14 +185,11 @@ func dropAllIndexesAndConstraintsV4() error {
 //creates all indexes
 func createAllIndexesAndConstraintsV4(mappedTypes *hashmap.HashMap) error {
 	for _, db := range internalConfig.TargetDbs {
-		sess, err := driver.NewSession(neo4j.SessionConfig{
+		sess := driver.NewSession(neo4j.SessionConfig{
 			AccessMode:   neo4j.AccessModeWrite,
 			Bookmarks:    nil,
 			DatabaseName: db,
 		})
-		if err != nil {
-			return err
-		}
 		defer sess.Close()
 
 		//validate that we have to do anything
@@ -310,14 +304,11 @@ func createAllIndexesAndConstraintsV4(mappedTypes *hashmap.HashMap) error {
 //verifies all indexes
 func verifyAllIndexesAndConstraintsV4(mappedTypes *hashmap.HashMap) error {
 	for _, db := range internalConfig.TargetDbs {
-		sess, err := driver.NewSession(neo4j.SessionConfig{
+		sess := driver.NewSession(neo4j.SessionConfig{
 			AccessMode:   neo4j.AccessModeWrite,
 			Bookmarks:    nil,
 			DatabaseName: db,
 		})
-		if err != nil {
-			return err
-		}
 		defer sess.Close()
 
 		//validate that we have to do anything

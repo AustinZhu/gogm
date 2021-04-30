@@ -23,7 +23,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
-	go_cypherdsl "github.com/mindstand/go-cypherdsl"
+	gocypherdsl "github.com/mindstand/go-cypherdsl"
 	"reflect"
 	"strings"
 	"sync"
@@ -200,12 +200,12 @@ func (r *relationConfigs) GetConfigs(startNodeType, startNodeFieldType, endNodeT
 		return nil, nil, errors.New("no configs provided")
 	}
 
-	start, err = r.getConfig(startNodeType, relationship, startNodeFieldType, go_cypherdsl.DirectionOutgoing)
+	start, err = r.getConfig(startNodeType, relationship, startNodeFieldType, gocypherdsl.DirectionOutgoing)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	end, err = r.getConfig(endNodeType, relationship, endNodeFieldType, go_cypherdsl.DirectionIncoming)
+	end, err = r.getConfig(endNodeType, relationship, endNodeFieldType, gocypherdsl.DirectionIncoming)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -213,7 +213,7 @@ func (r *relationConfigs) GetConfigs(startNodeType, startNodeFieldType, endNodeT
 	return start, end, nil
 }
 
-func (r *relationConfigs) getConfig(nodeType, relationship, fieldType string, direction go_cypherdsl.Direction) (*decoratorConfig, error) {
+func (r *relationConfigs) getConfig(nodeType, relationship, fieldType string, direction gocypherdsl.Direction) (*decoratorConfig, error) {
 	if r.configs == nil {
 		return nil, errors.New("no configs provided")
 	}
@@ -281,16 +281,16 @@ func (r *relationConfigs) Validate() error {
 				validate := checkMap[relType]
 
 				switch config.Direction {
-				case go_cypherdsl.DirectionIncoming:
+				case gocypherdsl.DirectionIncoming:
 					validate.Incoming = append(validate.Incoming, field)
 					break
-				case go_cypherdsl.DirectionOutgoing:
+				case gocypherdsl.DirectionOutgoing:
 					validate.Outgoing = append(validate.Outgoing, field)
 					break
-				case go_cypherdsl.DirectionNone:
+				case gocypherdsl.DirectionNone:
 					validate.None = append(validate.None, field)
 					break
-				case go_cypherdsl.DirectionBoth:
+				case gocypherdsl.DirectionBoth:
 					validate.Both = append(validate.Both, field)
 					break
 				default:

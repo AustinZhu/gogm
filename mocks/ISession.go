@@ -4,7 +4,7 @@ package mocks
 
 import (
 	go_cypherdsl "github.com/mindstand/go-cypherdsl"
-	gogm "github.com/mindstand/gogm"
+	gogm "github.com/AustinZhu/gogm"
 
 	mock "github.com/stretchr/testify/mock"
 )

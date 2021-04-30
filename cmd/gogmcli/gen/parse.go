@@ -22,8 +22,8 @@ package gen
 import (
 	"bytes"
 	"errors"
+	"github.com/AustinZhu/gogm/cmd/gogmcli/util"
 	go_cypherdsl "github.com/mindstand/go-cypherdsl"
-	"github.com/mindstand/gogm/cmd/gogmcli/util"
 	"go/ast"
 	"go/parser"
 	"go/printer"

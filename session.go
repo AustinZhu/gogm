@@ -25,7 +25,7 @@ import (
 	"reflect"
 
 	dsl "github.com/mindstand/go-cypherdsl"
-	"github.com/neo4j/neo4j-go-driver/neo4j"
+	"github.com/neo4j/neo4j-go-driver/v4/neo4j"
 )
 
 const defaultDepth = 1
@@ -74,14 +74,11 @@ func NewSessionWithConfig(conf SessionConfig) (*Session, error) {
 		return nil, errors.New("driver cannot be nil")
 	}
 
-	neoSess, err := driver.NewSession(neo4j.SessionConfig{
+	neoSess := driver.NewSession(neo4j.SessionConfig{
 		AccessMode:   conf.AccessMode,
 		Bookmarks:    conf.Bookmarks,
 		DatabaseName: conf.DatabaseName,
 	})
-	if err != nil {
-		return nil, err
-	}
 
 	return &Session{
 		neoSess:      neoSess,
@@ -505,11 +502,11 @@ func (s *Session) QueryRaw(query string, properties map[string]interface{}) ([][
 
 	// we have to wrap everything because the driver only exposes interfaces which are not serializable
 	for res.Next() {
-		valLen := len(res.Record().Values())
-		valCap := cap(res.Record().Values())
+		valLen := len(res.Record().Values)
+		valCap := cap(res.Record().Values)
 		if valLen != 0 {
 			vals := make([]interface{}, valLen, valCap)
-			for i, val := range res.Record().Values() {
+			for i, val := range res.Record().Values {
 				switch val.(type) {
 				case neo4j.Path:
 					vals[i] = newPathWrap(val.(neo4j.Path))

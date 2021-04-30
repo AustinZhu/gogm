@@ -22,6 +22,7 @@ package gogm
 import (
 	"errors"
 	"github.com/cornelk/hashmap"
+	"github.com/neo4j/neo4j-go-driver/v4/neo4j"
 	"github.com/stretchr/testify/require"
 	"reflect"
 	"testing"
@@ -81,13 +82,13 @@ func TestConvertNodeToValue(t *testing.T) {
 		},
 	})
 
-	bn := testNode{
-		id: 10,
-		props: map[string]interface{}{
+	bn := neo4j.Node{
+		Id: 10,
+		Props: map[string]interface{}{
 			"uuid":        "dadfasdfasdf",
 			"other_field": "dafsdfasd",
 		},
-		labels: []string{"TestStruct"},
+		Labels: []string{"TestStruct"},
 	}
 
 	val, err := convertNodeToValue(bn)
@@ -99,14 +100,14 @@ func TestConvertNodeToValue(t *testing.T) {
 		OtherField: "dafsdfasd",
 	}, val.Interface().(TestStruct))
 
-	bn = testNode{
-		id: 10,
-		props: map[string]interface{}{
+	bn = neo4j.Node{
+		Id: 10,
+		Props: map[string]interface{}{
 			"uuid":        "dadfasdfasdf",
 			"other_field": "dafsdfasd",
 			"t":           "dadfasdf",
 		},
-		labels: []string{"TestStruct"},
+		Labels: []string{"TestStruct"},
 	}
 
 	var te structDecoratorConfig

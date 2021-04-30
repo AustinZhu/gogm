@@ -21,7 +21,7 @@ package main
 
 import (
 	"errors"
-	"github.com/mindstand/gogm/cmd/gogmcli/gen"
+	"github.com/AustinZhu/gogm/cmd/gogmcli/gen"
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"

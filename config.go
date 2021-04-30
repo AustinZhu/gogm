@@ -23,7 +23,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/cornelk/hashmap"
-	"github.com/neo4j/neo4j-go-driver/neo4j"
+	"github.com/neo4j/neo4j-go-driver/v4/neo4j"
 	"github.com/sirupsen/logrus"
 	"reflect"
 	"strconv"
@@ -92,7 +92,7 @@ func (c *Config) ConnectionString() string {
 	return fmt.Sprintf("%s://%s:%v", protocol, c.Host, c.Port)
 }
 
-// Index Strategy typedefs int to define different index approaches
+// IndexStrategy Index Strategy typedefs int to define different index approaches
 type IndexStrategy int
 
 const (
@@ -125,7 +125,7 @@ func Init(conf *Config, mapTypes ...interface{}) error {
 	return setupInit(false, conf, mapTypes...)
 }
 
-// Resets GoGM configuration
+// Reset Resets GoGM configuration
 func Reset() {
 	mappedTypes = &hashmap.HashMap{}
 	mappedRelations = &relationConfigs{}
@@ -199,7 +199,7 @@ func setupInit(isTest bool, conf *Config, mapTypes ...interface{}) error {
 		log.Debug("opening connection to neo4j")
 		// todo tls support
 		config := func(neoConf *neo4j.Config) {
-			neoConf.Encrypted = conf.Encrypted
+			//neoConf.Encrypted = conf.Encrypted
 			neoConf.MaxConnectionPoolSize = conf.PoolSize
 		}
 		var err error
@@ -221,7 +221,7 @@ func setupInit(isTest bool, conf *Config, mapTypes ...interface{}) error {
 			return err
 		}
 
-		sum, err := res.Summary()
+		sum, err := res.Consume()
 		if err != nil {
 			return err
 		}
